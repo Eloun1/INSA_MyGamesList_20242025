@@ -26,6 +26,8 @@ object GameList
 @Serializable
 data class GameDetail(val gameId : Long)
 
+//classe principale qui appelle une fonction pour lancer l'application
+
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
 
@@ -44,10 +46,12 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun ApplicationNavigable() {
+        //déclaration de la variable permettant de naviguer dans l'application
         val navController = rememberNavController()
-        var searchQuery by rememberSaveable { mutableStateOf("") }
-        var favoriteGames by remember { mutableStateOf(mutableSetOf<Long>()) } //liste qui retient les favoris
+        //declaration de la liste des favoris
+        var favoriteGames by remember { mutableStateOf(mutableSetOf<Long>()) }
 
+        //fonction qui permet de gérer la mise en favoris dans la liste
         fun toggleFavorite(gameId: Long) {
             favoriteGames = favoriteGames.toMutableSet().apply {
                 if (contains(gameId)) {
@@ -58,6 +62,8 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        // navHost qui contient les différentes destinations possible : le détail des jeux
+        // et l'écran d'accueil (fonctions définies dans d'autres fichiers)
         NavHost(navController, startDestination = GameList) {
             composable<GameList> {
                 HomeScreen(

@@ -6,15 +6,18 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -91,7 +94,6 @@ fun DetailJeu(navController: NavController, gameId: Long,
                     .padding(16.dp)
                     .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                //verticalArrangement = Arrangement.spacedBy(50.dp)
                 verticalArrangement = Arrangement.Top
             ) {
                 Text(
@@ -103,15 +105,26 @@ fun DetailJeu(navController: NavController, gameId: Long,
                     modifier = Modifier.padding(16.dp)
                 )
 
-                //Spacer(modifier = Modifier.padding(20.dp)) //inutile quand on utilise une colonne
+                // tentative d'affichage joli des icones
+                Card(
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(8.dp),
+                    shape = RoundedCornerShape(12.dp),
 
-                AsyncImage(
-                    model = "https:${IGDB.covers.find { it.id == game.cover }!!.url}",
-                    contentDescription = "" + game.name,
-                    contentScale = ContentScale.Crop
+                    ){
+                    AsyncImage(
+                        model = "https:${IGDB.covers.find { it.id == game.cover }!!.url}",
+                        contentDescription = "" + game.name,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxWidth().height(375.dp)
+                    )
+                }
+
+                Text(
+                    text = "${IGDB.getGenreNames(game.genres)}",
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold
                 )
-
-                //mettre un détail des genres
 
                 LazyRow(
                     modifier = Modifier
@@ -127,8 +140,6 @@ fun DetailJeu(navController: NavController, gameId: Long,
                         }
                     }
                 }
-
-                //Spacer(modifier = Modifier.padding(20.dp))
 
                 Text(
                     text = game.summary,
