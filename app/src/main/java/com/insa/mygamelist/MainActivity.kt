@@ -24,12 +24,13 @@ import kotlinx.serialization.Serializable
 object GameList
 
 @Serializable
-data class GameDetail(val gameId : Long)
+data class GameDetail(val gameId : Long, val gameIds: List<Long>) //on passe une liste en parametre pour le swipe entre jeux sélectionnés
 
 //classe principale qui appelle une fonction pour lancer l'application
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +75,7 @@ class MainActivity : ComponentActivity() {
             }
             composable<GameDetail> { backStackEntry ->
                 val gameDetail = backStackEntry.toRoute<GameDetail>()
-                DetailJeu(navController, gameDetail.gameId, favoriteGames, ::toggleFavorite)
+                DetailJeu(navController, gameDetail.gameId, favoriteGames, ::toggleFavorite,gameDetail.gameIds)
             }
         }
     }

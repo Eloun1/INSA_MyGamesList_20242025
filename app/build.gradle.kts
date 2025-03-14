@@ -72,6 +72,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.retrofit.kotlinx.serialization)
+    implementation(libs.androidx.datastore.preferences.core.jvm)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -79,4 +80,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }

@@ -35,14 +35,16 @@ import com.insa.mygamelist.data.IGDB
 
 @Composable
 fun CarteJeu(gameId: Long, navController: NavController,
-             favoriteGames : Set<Long>, onToggleFavorite : (Long) -> Unit) {
+             favoriteGames : Set<Long>, onToggleFavorite : (Long) -> Unit,
+             gameIds: List<Long> //on ajoute ce paramètre pour pouvoir swipe entre les jeux sélectionnés (favoris, recherche...)
+) {
     val game = IGDB.games.find { it.id == gameId } ?: return
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { navController.navigate(GameDetail(gameId)) },
+            .clickable { navController.navigate(GameDetail(gameId, gameIds)) }, //permettre le swipe des jeux sélectionnés
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {

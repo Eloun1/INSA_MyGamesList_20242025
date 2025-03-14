@@ -132,7 +132,7 @@ fun HomeScreen(
             } else {
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(filteredGames) { game ->
-                        CarteJeu(game.id, navController, favoriteGames, onToggleFavorite)
+                        CarteJeu(game.id, navController, favoriteGames, onToggleFavorite, filteredGames.map{it.id}) //passe la liste des jeux filtrés en paramètres pour permettre le swipe
                     }
                 }
             }
